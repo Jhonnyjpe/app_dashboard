@@ -154,32 +154,37 @@ class _DashboardState extends State<Dashboard> {
                         },
                       ),
                       const SizedBox(height: 20),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 1,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GridView.builder(
-                            shrinkWrap: true,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount:
-                                  Responsive.isDesktop(context) ? 4 : 1,
-                              crossAxisSpacing: 16.0,
-                              mainAxisSpacing: 16.0,
-                            ),
-                            itemCount: reportes.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  // Manejar el evento de toque si es necesario
-                                },
-                                child: InfoCard(
-                                  reporte: reportes[index],
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
+                      // Reemplaza el bloque de código de tu GridView.builder con el siguiente:
+
+ListView.builder(
+  shrinkWrap: true,
+  itemCount: 1,
+  itemBuilder: (BuildContext context, int index) {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: Responsive.isDesktop(context) ? 4 : 1,
+          crossAxisSpacing: 16.0,
+          mainAxisSpacing: 16.0,
+        ),
+        itemCount: reportes.length,
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            onTap: () {
+              // Manejar el evento de toque si es necesario
+            },
+            child: InfoCard(
+              reporte: reportes[index],
+            ),
+          );
+        },
+      ),
+    );
+  },
+),
+
                     ],
                   ),
                 ),
