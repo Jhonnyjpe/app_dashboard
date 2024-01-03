@@ -39,7 +39,7 @@ class _DashboardHeaderState extends State<DashboardHeader> {
       children: [
         if (Responsive.isDesktop(context))
           SizedBox(
-            width: 400,
+            width: 420,
             child: TextField(
               onChanged: widget.onChanged,
               controller: widget.searchController,

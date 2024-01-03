@@ -73,7 +73,6 @@ class _DashboardState extends State<Dashboard> {
     ),
   ];
 
-
   List<Reporte> originalReportes = [];
 
   @override
@@ -86,18 +85,15 @@ class _DashboardState extends State<Dashboard> {
 
   void filterItems(String query) {
     if (query.isEmpty) {
-      // Si el texto está vacío, restaura la lista original
       setState(() {
         reportes = originalReportes.toList();
       });
     } else {
-      // Filtra la lista según el texto ingresado
       List<Reporte> filteredList = originalReportes
-          .where(
-              (item) => item.titulo.toLowerCase().contains(query.toLowerCase()))
+          .where((item) =>
+              item.titulo.toLowerCase().contains(query.toLowerCase()))
           .toList();
 
-      // Actualiza el estado con la lista filtrada
       setState(() {
         reportes = filteredList;
       });
@@ -118,13 +114,14 @@ class _DashboardState extends State<Dashboard> {
               elevation: 0,
               backgroundColor: AppColors.white,
               leading: IconButton(
-                  onPressed: () {
-                    _drawerKey.currentState!.openDrawer();
-                  },
-                  icon: const Icon(
-                    Icons.menu,
-                    color: AppColors.black,
-                  )),
+                onPressed: () {
+                  _drawerKey.currentState!.openDrawer();
+                },
+                icon: const Icon(
+                  Icons.menu,
+                  color: AppColors.black,
+                ),
+              ),
             )
           : const PreferredSize(
               child: SizedBox(),
@@ -155,24 +152,31 @@ class _DashboardState extends State<Dashboard> {
                         onChanged: (value) {
                           filterItems(value);
                         },
-                        
-
                       ),
                       const SizedBox(height: 20),
-                      // Agregar el GridView con 5 elementos de ejemplo
-                      GridView.builder(
+                      ListView.builder(
                         shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: Responsive.isDesktop(context)
-                              ? 4
-                              : 1, // Número de columnas
-                          crossAxisSpacing: 16.0,
-                          mainAxisSpacing: 16.0,
-                        ),
-                        itemCount: reportes.length,
+                        itemCount: 1,
                         itemBuilder: (BuildContext context, int index) {
-                          return InfoCard(
-                            reporte: reportes[index],
+                          return GridView.builder(
+                            shrinkWrap: true,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount:
+                                  Responsive.isDesktop(context) ? 4 : 1,
+                              crossAxisSpacing: 16.0,
+                              mainAxisSpacing: 16.0,
+                            ),
+                            itemCount: reportes.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  // Manejar el evento de toque si es necesario
+                                },
+                                child: InfoCard(
+                                  reporte: reportes[index],
+                                ),
+                              );
+                            },
                           );
                         },
                       ),
